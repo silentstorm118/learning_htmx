@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/books", (req, res) => {
-  res.send(createListTemplate());
+  res.send(createListTemplate(BOOK_DATA));
 });
 
 app.post("/books", (req, res) => {
@@ -47,7 +47,7 @@ app.delete("/books/:id", (req, res) => {
   res.send()
 });
 
-app.put("/book/:id", (req, res) => {
+app.put("/books/:id", (req, res) => {
   const { title, author } = req.body;
   const { id } = req.params;
   const new_book = { title, author, id }
@@ -64,6 +64,14 @@ app.get("/books/edit/:id", (req, res) => {
   res.send(createEditFormTemplate(book))
 
 });
+
+app.post("/books/search", (req, res) => {
+  const text = req.body.search.toLowerCase();
+
+  const books = BOOK_DATA.filter(b => b.title.toLowerCase().includes(text))
+
+  res.send(createListTemplate(books))
+})
 
 // listen to port
 app.listen(3000, () => {
