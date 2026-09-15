@@ -2,6 +2,7 @@ const createHomepageTemplate = () => /*html*/`
   <html>
       <head>
           <title>My Reading List</title>
+          <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.10/dist/htmx.min.js" integrity="sha384-H5SrcfygHmAuTDZphMHqBJLc3FhssKjG7w/CeCpFReSfwBWDTKpkzPP8c+cLsK+V" crossorigin="anonymous"></script>
           <link rel="stylesheet" href="/styles.css" />
       </head>
       <body>
@@ -9,16 +10,18 @@ const createHomepageTemplate = () => /*html*/`
               <h1>My Reading List</h1>
           </header>
           <main>
-              <div className="book-list">
-
+              <div class="book-list">
+                  <button hx-get="/books">Show Books</button>
               </div>
 
-              <div className="add-book-form">
+              <div class="add-book-form">
                   <h2>What do you want to read?</h2>
               </div>
 
 
           </main>
+
+
       </body>
   </html>
 `;
