@@ -2,6 +2,7 @@ import express from "express";
 import createHomepageTemplate from "./views/index.js";
 import createListTemplate from "./views/list.js";
 import createBookTemplate from "./views/book.js";
+import createEditFormTemplate from "./views/edit.js";
 
 import BOOK_DATA from "./data/data.js";
 
@@ -44,6 +45,24 @@ app.delete("/books/:id", (req, res) => {
   BOOK_DATA.splice(idx, 1);
 
   res.send()
+});
+
+app.put("/book/:id", (req, res) => {
+  const { title, author } = req.body;
+  const { id } = req.params;
+  const new_book = { title, author, id }
+
+  const idx = BOOK_DATA.findIndex((b) => b.id === id);
+  BOOK_DATA[idx] = new_book;
+  res.send(createBookTemplate(new_book));
+});
+
+
+app.get("/books/edit/:id", (req, res) => {
+  const book = BOOK_DATA.find((b) => b.id === req.params.id);
+
+  res.send(createEditFormTemplate(book))
+
 });
 
 // listen to port
